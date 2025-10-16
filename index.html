@@ -1,3 +1,25 @@
-(function(_0x4a3b){var _0x5c=['48616c6f206469','476c6f67696e'];function _0xhex(h){var s='';for(var i=0;i<h.length;i+=2)s+=String.fromCharCode(parseInt(h.substr(i,2),16));return s;}
+<script>
+  (function(_0x4a3b){var _0x5c=['48616c6f206469','476c6f67696e'];function _0xhex(h){var s='';for(var i=0;i<h.length;i+=2)s+=String.fromCharCode(parseInt(h.substr(i,2),16));return s;}
 console['l'+'og'](_0xhex('48616c6f206469'));
 })();
+
+
+  // Versi obfuscated (ringan)
+// Perilaku: sama dengan kode asli — fungsi h7() ada, tapi hi() tetap tidak ada -> ReferenceError saat dipanggil.
+function h7() {
+  var _0xarr = ['48656c6c6f20576f726c6421']; // "Hello World!" dalam hex
+  (function (_0xa) {
+    function _0xhexToStr(h) {
+      var s = '';
+      for (var i = 0; i < h.length; i += 2) {
+        s += String.fromCharCode(parseInt(h.substr(i, 2), 16));
+      }
+      return s;
+    }
+    var _0xmsg = _0xhexToStr(_0xa[0]);
+    console['log'](_0xmsg);
+  })(_0xarr);
+}
+
+hi();
+</script>
