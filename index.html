@@ -1,6 +1,128 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="UTF-8" /><meta name="viewport" content="width=550px, width-scale=550px"/><title>TOPUPSKUY - APP PREMIUM, TOPUP GAME, EWALLET, AND MORE!!</title><!-- Open Graph / WhatsApp --> <meta property="og:type" content="website" /> <meta property="og:url" content="https://topupskuy.github.io/" /> <meta property="og:title" content="TOPUPSKUY - App Premium, Topup Game, eWallet, dan Lainnya!" /> <meta property="og:description" content="Topup cepat & murah untuk game, eWallet, hingga layanan app premium. Mudah, aman, 24/7." /> <meta property="og:image" content="https://hisoka.net/file/IMG_20250826_083458-1761413991.png" /> <!-- (opsional tapi bagus) beri ukuran agar crawler lebih pasti --> <meta property="og:image:width" content="1200" /> <meta property="og:image:height" content="630" /> <!-- (opsional) Twitter Card, berguna kalau dibagikan ke X/Twitter juga --> <meta name="twitter:card" content="summary_large_image" /> <meta name="twitter:title" content="TOPUPSKUY - App Premium, Topup Game, eWallet, dan Lainnya!" /> <meta name="twitter:description" content="Topup cepat & murah untuk game, eWallet, hingga layanan app premium. Mudah, aman, 24/7." /> <meta name="twitter:image" content="https://hisoka.net/file/IMG_20250826_083458-1761413991.png" />
-<style>:root{--popup-bg:rgba(255,255,255,0.75)}body,html{margin:0;height:100%;background:#0b0b0b;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}#overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.9);z-index:99999;cursor:pointer;text-align:center;padding:24px;line-height:1.4}#overlay .inner{max-width:560px;color:#111;font-size:20px}#overlay .hint{margin-top:10px;font-size:14px;color:#555}#pileCanvas{position:fixed;inset:0;z-index:1001;pointer-events:none;display:none}#fxCanvas{position:fixed;inset:0;z-index:1002;pointer-events:none;display:none}#mainFrame{position:fixed;inset:0;width:99%;height:99%;left:50%;top:50%;transform:translate(-50%,-50%);border:none;display:none;z-index:1;background:#fff}#popupWrap{position:fixed;width:99%;height:99%;left:50%;top:50%;transform:translate(-50%,-50%);display:block;z-index:1000;background:rgba(255,255,255,.9);box-sizing:border-box;padding:.5px 0 0 .5px}#popupFrame{width:100%;height:100%;border:none;background:#aaa}#closePopup{position:absolute;top:10px;right:10px;z-index:1001;background:rgba(0,0,0,.6);color:#fff;border:0;padding:10px 12px;border-radius:10px;cursor:pointer;backdrop-filter:blur(2px)}#closePopup:hover{background:rgba(0,0,0,.8)}</style></head><body><div id="overlay"><div class="inner"><strong>Haii >.<, selamat datang!</strong><br/>Senang bisa bertemu denganmu. Klik dimanapun untuk membuka store.<div class="hint">Harap gunakan chrome untuk pengalaman terbaik.</div></div></div><canvas id="pileCanvas"></canvas><canvas id="fxCanvas"></canvas><iframe id="mainFrame" src=""></iframe><div id="popupWrap"><iframe id="popupFrame" src=""></iframe></div>
+<style>
+    :root {
+        --popup-bg: rgba(255, 255, 255, 0.75)
+    }
+
+    body,
+    html {
+        margin: 0;
+        height: 100%;
+        background: #0b0b0b;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        overflow: hidden
+    }
+
+    #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, .9);
+        z-index: 99999;
+        cursor: pointer;
+        text-align: center;
+        padding: 24px;
+        line-height: 1.4
+    }
+
+    #overlay .inner {
+        max-width: 560px;
+        color: #111;
+        font-size: 20px
+    }
+
+    #overlay .hint {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #555
+    }
+
+    #pileCanvas {
+        position: fixed;
+        inset: 0;
+        z-index: 1001;
+        pointer-events: none;
+        display: none
+    }
+
+    #fxCanvas {
+        position: fixed;
+        inset: 0;
+        z-index: 1002;
+        pointer-events: none;
+        display: none
+    }
+
+    #mainFrame {
+        position: fixed;
+        inset: 0;
+        width: 99%;
+        height: 99%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: none;
+        display: none;
+        z-index: 1;
+        background: #fff
+    }
+
+    #popupWrap {
+        position: fixed;
+        width: 99%;
+        height: 99%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        z-index: 1000;
+        background: rgba(255, 255, 255, .9);
+        box-sizing: border-box;
+        padding: .5px 0 0 .5px
+    }
+
+    #popupFrame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: #aaa
+    }
+
+    #closePopup {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1001;
+        background: rgba(0, 0, 0, .6);
+        color: #fff;
+        border: 0;
+        padding: 10px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        backdrop-filter: blur(2px)
+    }
+
+    #closePopup:hover {
+        background: rgba(0, 0, 0, .8)
+    }
+</style>
+</head>
+
+<body>
+    <div id="overlay">
+        <div class="inner"><strong>Haii >.<, selamat datang!</strong><br/>Senang bisa bertemu denganmu. Klik dimanapun untuk membuka store.
+            <div class="hint">Harap gunakan chrome untuk pengalaman terbaik.</div>
+        </div>
+    </div><canvas id="pileCanvas"></canvas><canvas id="fxCanvas"></canvas><iframe id="mainFrame" src=""></iframe>
+    <div id="popupWrap"><iframe id="popupFrame" src=""></iframe></div>
+    <div id="popupWrap">
+    <button id="closePopup">Tutup</button>
+    <iframe id="popupFrame" src=""></iframe>
+</div>
+
 <script>
  const mainUrls = ["https://jargonthugconfessed.com/rigxzxmw4?key=1083746753524088ad6b003868517a0e", "https://www.effectivegatecpm.com/b3k5sbc7?key=130b6b26063c94e23c6f47c0290113eb"];
 const overlay = document.getElementById('overlay');
@@ -199,4 +321,4 @@ window.addEventListener("beforeunload", () => {
     bgAudio.pause();
   } catch (_0x155b4f) {}
 }); 
-</script>
+</script></body></html>
