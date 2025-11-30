@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="id">
 <head>
@@ -137,7 +136,7 @@
       /* ===========================
          1) Countdown tombol Tutup
          =========================== */
-      let t = 1;
+      let t = 3;
       closeBtn.textContent = `Tutup (${t})`;
 
       const timer = setInterval(() => {
@@ -152,7 +151,7 @@
         }
       }, 100);
 
-      const delayMs = 10000;
+      const delayMs = 5000;
 
       function smartClose() {
         // Coba hard-close dulu (akan berhasil kalau tab dibuka dari window.open)
@@ -165,13 +164,13 @@
           // (timer tidak akan dieksekusi kalau window benar-benar tertutup)
           if (!document.hidden) {
             if (window.history.length > 1) {
-              window.close();
+              history.back();
             } else {
               // bisa diganti ke URL lain jika mau
               window.close();
             }
           }
-        }, 10000);
+        }, 200);
       }
 
       closeBtn.addEventListener("click", () => {
@@ -180,8 +179,8 @@
         closeBtn.textContent = "Wait..";
 
         setTimeout(() => {
-          window.close();
-        }, 10000);
+          smartClose();
+        }, delayMs);
       });
 
       document.addEventListener("keydown", (e) => {
