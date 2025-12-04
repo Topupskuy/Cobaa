@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fullscreen Iframe + Close Countdown Overlay</title>
+  <title>Ghibli Green Main Space + Dual Iframe</title>
 
   <style>
     :root{
-      --blur-amount: 4px;
+      --blur-amount: 7px;
       --btn-radius: 999px;
-      --btn-bg: rgba(10,10,12,.85);
-      --btn-border: rgba(255,255,255,.25);
-      --btn-shadow: 0 14px 40px rgba(0,0,0,.45);
+      --btn-bg: rgba(15,41,24,.96);
+      --btn-border: rgba(214,255,224,.85);
+      --btn-shadow: 0 20px 48px rgba(0,0,0,.75);
+      --forest-light: #dfffe6;
+      --forest-mid: #7fcb8b;
+      --forest-deep: #163726;
+      --accent-gold: #ffd78b;
     }
 
     html, body{
@@ -19,161 +23,666 @@
       margin:0;
       padding:0;
       overflow:hidden;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:#000;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 12% 0%, #f9ffe9 0%, transparent 50%),
+        radial-gradient(circle at 88% 10%, #fff3d5 0%, transparent 55%),
+        linear-gradient(180deg, #e1ffe7 0%, #9fd4a6 42%, #325c40 100%);
+      color:#103020;
     }
 
-    .fs-iframe{
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      border: 0;
-      display:block;
-      background:#000;
-      z-index: 1;
+    /* Frame batas di tepi layar */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:12px;
+      border-radius:28px;
+      border:2px solid rgba(233,255,242,.9);
+      box-shadow:
+        0 0 0 1px rgba(24,70,46,.28),
+        0 28px 72px rgba(0,0,0,.55);
+      pointer-events:none;
+      z-index:999;
     }
 
-    .blur-layer{
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      background: rgba(0,0,0,.18);
+    /* ==============================
+       1. MAIN UTAMA: SPACE DIV GHIBLI
+       ============================== */
+    #main-screen{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+    }
+
+    .main-shell{
+      position:relative;
+      width:100%;
+      max-width:980px;
+      height:100%;
+      max-height:540px;
+      border-radius:26px;
+      padding:16px 18px;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.9) 0%, transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(210,255,226,.85) 0%, transparent 55%),
+        linear-gradient(145deg, rgba(230,255,238,.95), rgba(186,225,196,.96));
+      box-shadow:
+        0 26px 72px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.9);
+      border:1px solid rgba(40,100,60,.18);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .main-shell::before{
+      /* akar & daun lembut di tepi */
+      content:"";
+      position:absolute;
+      inset:-15% -25%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(85,160,104,.35) 0%, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(77,142,94,.32) 0%, transparent 55%),
+        radial-gradient(circle at 10% 100%, rgba(52,116,79,.35) 0%, transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(90,178,118,.32) 0%, transparent 55%);
+      opacity:.6;
+      mix-blend-mode:multiply;
+      pointer-events:none;
+    }
+
+    .main-shell-inner{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      height:100%;
+    }
+
+    .main-heading{
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:#244929;
+      text-align:center;
+      opacity:.9;
+    }
+
+    .main-line{
+      width:100%;
+      height:1px;
+      background:linear-gradient(90deg, transparent 0%, rgba(60,110,76,.6) 20%, rgba(60,110,76,.9) 50%, rgba(60,110,76,.6) 80%, transparent 100%);
+      opacity:.9;
+    }
+
+    .main-grid{
+      flex:1;
+      display:grid;
+      grid-template-rows: 0.9fr 1.4fr 0.9fr;
+      gap:12px;
+    }
+
+    .main-slot{
+      position:relative;
+      border-radius:22px;
+      border:1px solid rgba(42,108,70,.35);
+      box-shadow:
+        0 16px 40px rgba(0,0,0,.25),
+        inset 0 0 0 1px rgba(245,255,249,.85);
+      overflow:hidden;
+      padding:12px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,.85) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(207,255,222,.82) 0%, transparent 60%),
+        linear-gradient(135deg, #8ad095 0%, #4b9c60 45%, #224733 100%);
+      color:#f7fff8;
+    }
+
+    .main-slot::before{
+      content:"";
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,255,255,.6) 0%, transparent 55%),
+        radial-gradient(circle at 85% 100%, rgba(210,255,230,.6) 0%, transparent 55%);
+      opacity:.45;
+      mix-blend-mode:screen;
+      pointer-events:none;
+    }
+
+    .main-slot-title{
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+
+    .main-slot-desc{
+      font-size:11px;
+      opacity:.9;
+    }
+
+    .main-slot-tag{
+      font-size:10px;
+      text-transform:uppercase;
+      opacity:.85;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px dashed rgba(230,255,238,.8);
+      background:rgba(10,40,22,.45);
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+    }
+
+    .leaf-dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:radial-gradient(circle at 30% 30%, #ffffff 0%, #c6ffca 35%, #4a9b5e 100%);
+      box-shadow:0 0 12px rgba(200,255,210,.8);
+    }
+
+    @media (max-width:768px){
+      #main-screen{
+        padding:14px;
+      }
+      .main-shell{
+        padding:12px 12px 14px;
+      }
+      .main-grid{
+        grid-template-rows: 1fr 1.2fr 1fr;
+      }
+    }
+
+    /* ==============================
+       2. POPUP BLUR + TUTUP GHIBLI
+       ============================== */
+    .veil-layer{
+      position:fixed;
+      inset:0;
+      z-index:5;
+      background:
+        radial-gradient(circle at top, rgba(30,80,52,.35) 0%, transparent 60%),
+        radial-gradient(circle at bottom, rgba(0,0,0,.6) 0%, transparent 65%);
       backdrop-filter: blur(var(--blur-amount));
       -webkit-backdrop-filter: blur(var(--blur-amount));
-      pointer-events: none;
     }
 
-    .close-wrap{
-      position: fixed;
-      inset: 0;
-      z-index: 3;
-      display:grid;
-      place-items:center;
+    .popup-wrap{
+      position:fixed;
+      inset:0;
+      z-index:6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .popup-shell{
+      position:relative;
+      max-width:360px;
+      width:100%;
+      border-radius:26px;
+      padding:16px 16px 18px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,.98) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(225,255,234,.95) 0%, transparent 55%),
+        linear-gradient(150deg, rgba(236,255,243,.98), rgba(201,234,209,.98));
+      box-shadow:
+        0 28px 80px rgba(0,0,0,.85),
+        0 0 0 1px rgba(255,255,255,.95);
+      border:1px solid rgba(32,88,56,.4);
+      overflow:hidden;
+    }
+
+    /* “akar/daun” di ujung-ujung popup */
+    .popup-shell::before{
+      content:"";
+      position:absolute;
+      inset:-18%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(81,156,103,.55) 0%, transparent 60%),
+        radial-gradient(circle at 100% 0%, rgba(75,145,97,.45) 0%, transparent 60%),
+        radial-gradient(circle at 0% 100%, rgba(54,119,82,.5) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(96,176,118,.45) 0%, transparent 60%);
+      opacity:.6;
+      mix-blend-mode:multiply;
+      pointer-events:none;
+    }
+
+    .popup-shell::after{
+      /* garis organik seperti sulur di tepi */
+      content:"";
+      position:absolute;
+      inset:6px;
+      border-radius:22px;
+      border:1px dashed rgba(31,102,67,.7);
+      box-shadow:
+        0 0 0 1px rgba(231,255,238,.8),
+        inset 0 0 14px rgba(35,90,60,.45);
+      pointer-events:none;
+    }
+
+    .popup-inner{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .popup-title{
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#1f3f29;
+      text-align:center;
+      opacity:.9;
+    }
+
+    .popup-line{
+      width:100%;
+      height:1px;
+      background:linear-gradient(90deg, transparent 0%, rgba(54,109,74,.75) 25%, rgba(54,109,74,.95) 50%, rgba(54,109,74,.75) 75%, transparent 100%);
+    }
+
+    .popup-ad-slot{
+      width:100%;
+      height:74px;
+      border-radius:18px;
+      border:1px solid rgba(38,103,65,.45);
+      box-shadow:
+        0 14px 40px rgba(0,0,0,.38),
+        inset 0 0 0 1px rgba(255,255,255,.9);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,.9) 0%, transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(208,255,225,.9) 0%, transparent 55%),
+        linear-gradient(135deg, #79c686 0%, #4c9b63 40%, #234532 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:8px;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:#f4fff7;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      animation: floatCard 5.4s ease-in-out infinite alternate;
+      cursor:pointer;
+    }
+
+    .popup-ad-slot::before{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,255,255,.7) 0%, transparent 55%),
+        radial-gradient(circle at 85% 100%, rgba(210,255,229,.7) 0%, transparent 55%);
+      opacity:.5;
+      mix-blend-mode:screen;
+      pointer-events:none;
+    }
+
+    .popup-ad-slot-bottom{ animation-delay: 1.4s; }
+
+    .popup-ad-main{
+      font-weight:700;
+      margin-bottom:4px;
+    }
+
+    .popup-ad-sub{
+      font-size:9px;
+      letter-spacing:.14em;
+      opacity:.9;
+    }
+
+    @keyframes floatCard{
+      0%{ transform: translateY(0) scale(1); }
+      100%{ transform: translateY(-4px) scale(1.01); }
     }
 
     .close-btn{
-      appearance: none;
-      border: 1px solid var(--btn-border);
-      background: var(--btn-bg);
-      color:#fff;
-      padding: 14px 22px;
-      font-size: 15px;
-      font-weight: 700;
-      border-radius: var(--btn-radius);
+      appearance:none;
+      border:1px solid var(--btn-border);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,.9) 0%, transparent 50%),
+        linear-gradient(135deg, #65b676 0%, #2f6f44 40%, #173928 100%);
+      color:#f1ffe9;
+      padding:12px 20px;
+      font-size:13px;
+      font-weight:800;
+      border-radius:var(--btn-radius);
       box-shadow: var(--btn-shadow);
-      cursor: not-allowed;
-      opacity: .65;
-      transition: .15s ease;
+      cursor:not-allowed;
+      opacity:.6;
+      transition: .18s ease;
       text-align:center;
-      min-width: 160px;
+      min-width:180px;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      align-self:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
     }
+
+    .close-seed{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 30%, #ffffff 0%, #ffe8b4 30%, #f39c34 65%, #c86e26 100%);
+      box-shadow:0 0 12px rgba(255,222,170,.9);
+    }
+
     .close-btn.enabled{
-      cursor: pointer;
-      opacity: 1;
+      cursor:pointer;
+      opacity:1;
+      filter:brightness(1.02);
     }
     .close-btn.enabled:hover{
       transform: translateY(-1px);
-      background: rgba(20,20,24,.95);
+      box-shadow:
+        0 22px 46px rgba(0,0,0,.8),
+        0 0 0 1px rgba(231,255,241,.95);
+      filter:brightness(1.05);
+    }
+    .close-btn.enabled:active{
+      transform: translateY(0);
+      box-shadow:
+        0 14px 32px rgba(0,0,0,.7),
+        0 0 0 1px rgba(231,255,241,.95);
+      filter:brightness(0.99);
     }
 
     @supports(padding: max(0px)){
-      .close-wrap{
+      .popup-wrap{
         padding-bottom: env(safe-area-inset-bottom);
       }
     }
 
-    /* baru: untuk sembunyikan elemen sebelum klik pertama */
-    .hidden{
-      display: none !important;
+    /* ==============================
+       3. LAYOUT IFRAME (MUNCUL SETELAH TUTUP)
+       ============================== */
+    #iframe-screen{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      display:none; /* akan diubah ke flex setelah klik tutup */
+    }
+
+    .iframe-split{
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      background:
+        linear-gradient(180deg, #1a3527 0%, #07140f 50%, #020705 100%);
+    }
+
+    .half-iframe{
+      flex: 1 1 50%;
+      width: 100vw;
+      height: 50vh;
+      border: 0;
+      display:block;
+      background:#020807;
+      box-shadow: inset 0 0 40px rgba(0,0,0,.75);
+    }
+
+    /* ==============================
+       4. RESPONSIVE
+       ============================== */
+    @media (max-width:480px){
+      .popup-shell{
+        padding:12px 12px 14px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- iframe disembunyikan dulu -->
-  <iframe
-    id="main-iframe"
-    class="fs-iframe hidden"
-    src="https://taxdifferenceinvestor.com/rigxzxmw4?key=1083746753524088ad6b003868517a0e"
-    title="Main Iframe"
-    loading="eager"
-    referrerpolicy="no-referrer-when-downgrade"
-    allow="autoplay; fullscreen"
-  ></iframe>
+  <!-- ==============================
+       1) MAIN UTAMA: SPACE DIV GHIBLI
+       ============================== -->
+  <div id="main-screen">
+    <div class="main-shell">
+      <div class="main-shell-inner">
+        <div class="main-heading">
+          GREEN VALLEY • MAIN SPACE
+        </div>
+        <div class="main-line"></div>
 
-  <!-- blur & overlay juga disembunyikan dulu -->
-  <div class="blur-layer hidden" aria-hidden="true"></div>
+        <div class="main-grid">
+          <!-- Space atas -->
+          <div class="main-slot">
+            <div>
+              <div class="main-slot-title">SPACE ATAS</div>
+              <div class="main-slot-desc">
+                Area untuk banner / gambar bernuansa Ghibli hijau alam.
+              </div>
+            </div>
+            <div class="main-slot-tag">
+              <span class="leaf-dot"></span>
+              slot iklan
+            </div>
+          </div>
 
-  <div class="close-wrap hidden" role="dialog" aria-modal="true" aria-label="Close overlay">
-    <button id="close-btn" class="close-btn" type="button" disabled>
-      Tutup (3)
-    </button>
+          <!-- Space tengah / utama -->
+          <div class="main-slot">
+            <div>
+              <div class="main-slot-title">SPACE UTAMA</div>
+              <div class="main-slot-desc">
+                Konten utama, ilustrasi, atau layout khusus Anda sebelum digantikan oleh tampilan dual iframe.
+              </div>
+            </div>
+            <div class="main-slot-tag">
+              <span class="leaf-dot"></span>
+              main content
+            </div>
+          </div>
+
+          <!-- Space bawah -->
+          <div class="main-slot">
+            <div>
+              <div class="main-slot-title">SPACE BAWAH</div>
+              <div class="main-slot-desc">
+                Tambahan slot promosi / CTA di bagian bawah dengan nuansa alam yang lembut.
+              </div>
+            </div>
+            <div class="main-slot-tag">
+              <span class="leaf-dot"></span>
+              extra slot
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================
+       2) POPUP BLUR + TOMBOL TUTUP (TRIGGER)
+       ============================== -->
+  <div class="veil-layer" id="veil-layer" aria-hidden="true"></div>
+
+  <div class="popup-wrap" id="popup-wrap" role="dialog" aria-modal="true" aria-label="Close overlay">
+    <div class="popup-shell">
+      <div class="popup-inner">
+        <div class="popup-title">LEMBUT SEBELUM BERLALU</div>
+        <div class="popup-line"></div>
+
+        <!-- Space iklan atas tombol -->
+        <div class="popup-ad-slot popup-ad-slot-top" id="popup-ad-top">
+          <div>
+            <div class="popup-ad-main">SPACE GAMBAR / IKLAN ATAS</div>
+            <div class="popup-ad-sub">bernunsa ghibli • hijau alam</div>
+          </div>
+        </div>
+
+        <!-- Tombol tutup -->
+        <button id="close-btn" class="close-btn" type="button" disabled>
+          <span class="close-seed"></span>
+          <span>Tutup (3)</span>
+        </button>
+
+        <!-- Space iklan bawah tombol -->
+        <div class="popup-ad-slot popup-ad-slot-bottom" id="popup-ad-bottom">
+          <div>
+            <div class="popup-ad-main">SPACE GAMBAR / IKLAN BAWAH</div>
+            <div class="popup-ad-sub">banner lembut di bawah tombol</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================
+       3) LAYOUT IFRAME (AKTIF SETELAH TOMBOL TUTUP)
+       ============================== -->
+  <div id="iframe-screen">
+    <div class="iframe-split" id="iframe-container">
+      <iframe
+        id="iframe-top"
+        class="half-iframe"
+        src="about:blank"
+        data-src="https://taxdifferenceinvestor.com/rigxzxmw4?key=1083746753524088ad6b003868517a0e"
+        title="Iframe Atas"
+        loading="eager"
+        referrerpolicy="no-referrer-when-downgrade"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
+      ></iframe>
+
+      <iframe
+        id="iframe-bottom"
+        class="half-iframe"
+        src="about:blank"
+        data-src="https://taxdifferenceinvestor.com/rigxzxmw4?key=1083746753524088ad6b003868517a0e"
+        title="Iframe Bawah"
+        loading="eager"
+        referrerpolicy="no-referrer-when-downgrade"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
+      ></iframe>
+    </div>
   </div>
 
   <script>
     (() => {
-      const iframe   = document.getElementById("main-iframe");
-      const blur     = document.querySelector(".blur-layer");
-      const closeWrap= document.querySelector(".close-wrap");
-      const closeBtn = document.getElementById("close-btn");
+      const mainScreen   = document.getElementById("main-screen");
+      const iframeScreen = document.getElementById("iframe-screen");
+      const veilLayer    = document.getElementById("veil-layer");
+      const popupWrap    = document.getElementById("popup-wrap");
+      const closeBtn     = document.getElementById("close-btn");
 
-      const delayMs = 1000;
+      /* ===========================
+         1) Countdown tombol Tutup (3 detik)
+         =========================== */
+      let t = 3;
+      const updateCloseText = () => {
+        closeBtn.innerHTML = "";
+        const seed = document.createElement("span");
+        seed.className = "close-seed";
+        const label = document.createElement("span");
+        label.textContent = t > 0 ? `Tutup (${t})` : "Tutup";
 
-      function startOverlay(){
-        // munculkan elemen-elemen overlay
-        iframe.classList.remove("hidden");
-        blur.classList.remove("hidden");
-        closeWrap.classList.remove("hidden");
+        closeBtn.appendChild(seed);
+        closeBtn.appendChild(label);
+      };
 
-        // mulai countdown
-        let t = 3;
+      updateCloseText();
+
+      const timer = setInterval(() => {
+        t -= 1;
+        if (t > 0) {
+          updateCloseText();
+        } else {
+          clearInterval(timer);
+          closeBtn.disabled = false;
+          closeBtn.classList.add("enabled");
+          t = 0;
+          updateCloseText();
+        }
+      }, 1000);
+
+      /* ===========================
+         2) Load iframe saat tombol tutup diklik
+         =========================== */
+      const loadIframes = () => {
+        const lazyIframes = document.querySelectorAll("iframe[data-src]");
+        lazyIframes.forEach((frame) => {
+          const url = frame.getAttribute("data-src");
+          if (url && frame.src === "about:blank") {
+            frame.src = url;
+          }
+        });
+      };
+
+      function handleCloseClick(){
+        if (closeBtn.disabled) return;
+
         closeBtn.disabled = true;
         closeBtn.classList.remove("enabled");
-        closeBtn.textContent = `Tutup (${t})`;
+        closeBtn.innerHTML = "";
+        const seed = document.createElement("span");
+        seed.className = "close-seed";
+        const label = document.createElement("span");
+        label.textContent = "Wait..";
+        closeBtn.appendChild(seed);
+        closeBtn.appendChild(label);
 
-        const timer = setInterval(() => {
-          t -= 1;
-          if (t > 0) {
-            closeBtn.textContent = `Tutup (${t})`;
-          } else {
-            clearInterval(timer);
-            closeBtn.disabled = false;
-            closeBtn.classList.add("enabled");
-            closeBtn.textContent = "Tutup";
-          }
-        }, 700);
+        // sedikit delay untuk efek halus lalu switch layar
+        setTimeout(() => {
+          // Hilangkan popup + blur
+          if (veilLayer) veilLayer.style.display = "none";
+          if (popupWrap) popupWrap.style.display = "none";
 
-        // handler klik tombol tutup
-        closeBtn.addEventListener("click", () => {
-          if (closeBtn.disabled) return;
+          // Hilangkan main utama, tampilkan iframe
+          if (mainScreen) mainScreen.style.display = "none";
+          if (iframeScreen) iframeScreen.style.display = "block";
 
-          closeBtn.disabled = true;      // optional: biar gak spam klik
-          closeBtn.textContent = "Wait..";
-
-          setTimeout(() => {
-            if (window.history.length > 1) {
-              window.close();
-            } else {
-              window.location.href = "#";
-            }
-          }, delayMs);
-        });
-
-        // ESC untuk tutup (kalau sudah aktif)
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && !closeBtn.disabled) closeBtn.click();
-        });
+          // Load iframe benar-benar di sini (dipicu klik tutup)
+          loadIframes();
+        }, 400);
       }
 
-      // iframe + overlay baru muncul saat KLIK PERTAMA di dokumen
-      document.addEventListener(
-        "click",
-        () => {
-          startOverlay();
-        },
-        { once: true } // pastikan cuma sekali
-      );
+      closeBtn.addEventListener("click", handleCloseClick);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !closeBtn.disabled) {
+          handleCloseClick();
+        }
+      });
+
+      /* ===========================
+         3) Blokir <a target="_blank"> di dokumen utama
+         =========================== */
+      document.addEventListener("click", (e) => {
+        const link = e.target.closest && e.target.closest("a[target='_blank']");
+        if (link) {
+          e.preventDefault();
+        }
+      });
+
+      // Popup dari dalam iframe diblokir lewat sandbox (tanpa allow-popups)
     })();
   </script>
 </body>
